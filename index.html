@@ -4,80 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
         <title>Clock</title> 
         <script type="text/javascript" src="raphael-min.js"></script> 
-        <script type="text/javascript">
-			var rest_hour_angle = 0;
-			var rest_min_angle = 0;
-			var rest_second_angle = 0;
-            function draw_clock(){
-                canvas = Raphael("clock_id",600, 600);
-                var clock = canvas.circle(300,300,285);
-                 clock.attr({"fill":"#ffffff","stroke":"#000000","stroke-width":"25"})  
-                 var hour_sign;
-                for(i=0;i<60;i++){
-					if (i % 5 != 0)
-					{
-						var start_x = 300+Math.round(240*Math.cos(6*i*Math.PI/180));
-						var start_y = 300+Math.round(240*Math.sin(6*i*Math.PI/180));
-						var end_x = 300+Math.round(260*Math.cos(6*i*Math.PI/180));
-						var end_y = 300+Math.round(260*Math.sin(6*i*Math.PI/180));    
-						hour_sign = canvas.path("M"+start_x+" "+start_y+"L"+end_x+" "+end_y);
-						hour_sign.attr({"stroke":"#000000","stroke-width":"3"});
-					}
-                    
-                }  
-				for(i=0;i<12;i++){
-					if (i % 3 != 0)
-					{
-						hour_sign = canvas.path("M297,40L303,40L303,90L300,92L297,90Z").rotate(30 * i, 300, 300);
-						hour_sign.attr({"stroke":"#000000","fill":"#000000"});
-					}
-                    
-                }  
-				for(i=0;i<4;i++){
-					
-						hour_sign = canvas.path("M294,40L306,40L306,90L300,94L294,90Z").rotate(90 * i, 300, 300);
-						hour_sign.attr({"stroke":"#000000","fill":"#000000"});
-					
-                }    
-                //hour_hand = canvas.path("M300 320L300 150");
-               // hour_hand.attr({stroke: "#000000", "stroke-width": 14});
-                hour_hand = canvas.path("M291, 320L291, 160C280, 150 300, 110 300, 110L300, 110C300, 110 320, 150 309, 160L309, 320z");
-                hour_hand.attr({stroke: "#ffffff","stroke-width": 2,fill:"#000000"});
-				minute_hand = canvas.path("M293, 325L293, 120C282, 110 300, 70 300, 70L300, 70C300, 70 318, 110 307, 120L307, 325z");
-                minute_hand.attr({stroke: "#ffffff","stroke-width": 2,fill:"#000000"});
-                second_hand = canvas.path("M300 330L300 75");
-                second_hand.attr({stroke: "#000000", "stroke-width": 6}); 
-                var pin = canvas.circle(300, 300, 15);
-                pin.attr({"fill":"#ffffff","stroke":"#ffffff"});
-				pin = canvas.circle(300, 300, 13)
-				pin.attr("fill", "#000000");
-                update_clock()
-                setInterval("update_clock()",1000);
-            }
-           
-			function update_clock(){
-                var now = new Date();
-                var hours = now.getHours();
-                var minutes = now.getMinutes();
-                var seconds = now.getSeconds();
-				var current_hour_angle = 30*(hours+minutes/60) + rest_hour_angle;
-				var current_min_angle = 6*minutes + rest_min_angle;
-				var current_second_angle = 6*seconds + rest_second_angle;
-				//alert(hours + " : " + minutes + " : " + seconds);
-                hour_hand.rotate(current_hour_angle, 300, 300);
-                minute_hand.rotate(current_min_angle, 300, 300);
-                second_hand.rotate(current_second_angle, 300, 300);
-				rest_hour_angle = 360 - 30*(hours+minutes/60);
-				rest_min_angle = 360 - 6*minutes;
-				rest_second_angle = 360 - 6*seconds;
-                
-            }
-         
-        </script>
+        <script type="text/javascript" src="clock.js"></script>
  
     </head> 
     <body> 
-        <div id="clock_id"></div>
-        <script>draw_clock()</script>
+        <div id="clock_widget" style="width:200px;height:200px;"></div>
+        <script>draw_clock(8)</script>
     </body> 
 </html>
